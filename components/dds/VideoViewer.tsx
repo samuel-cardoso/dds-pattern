@@ -96,7 +96,8 @@ export function VideoViewer({
         ref={videoRef}
         src={src}
         controls
-        controlsList="nofullscreen noremoteplayback"
+        controlsList="nofullscreen noremoteplayback nodownload"
+        disablePictureInPicture
         onLoadedMetadata={(event) => resumeIfNeeded(event.currentTarget)}
         onTimeUpdate={handleTimeUpdate}
         onSeeking={handleSeeking}
