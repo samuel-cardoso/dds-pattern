@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Padrão DDS — Declaração de Ciência
 
-## Getting Started
+Protótipo de um padrão para garantir, de verdade, que o usuário consumiu um conteúdo antes de liberar uma confirmação ("declaro que li e estou ciente"). O objetivo é ir além de um simples checkbox: cada tipo de conteúdo só é marcado como "visualizado" quando existe evidência real de consumo.
 
-First, run the development server:
+Regras por tipo de conteúdo:
+
+- **Imagem** — precisa ficar visível na tela por um tempo mínimo contínuo.
+- **Vídeo** — precisa ser assistido até o fim (ou até um % mínimo). Não dá pra arrastar a barra pra frente sem assistir: tentar pular volta pro ponto realmente assistido.
+- **PDF** — cada página precisa passar um tempo mínimo visível individualmente. Rolar rápido até o final sem passar pelo meio do documento não conta.
+- **Texto** — precisa ser rolado até o final do conteúdo.
+
+Um botão de confirmação central só é liberado quando todos os itens de uma tela estiverem marcados como vistos.
+
+### Rotas de demonstração
+
+- `/dds/image` — imagem
+- `/dds/video` — vídeo
+- `/dds/pdf` — PDF
+- `/dds/text` — texto
+- `/dds/all` — os quatro tipos combinados, com um único botão de confirmação
+
+### Rodando localmente
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+O vídeo de demonstração é servido por um mini-servidor separado, simulando hospedagem externa (CDN):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run mock:video-cdn
+```
