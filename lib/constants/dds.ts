@@ -4,3 +4,4 @@ export const DDS_VISIBILITY_RATIO = 0.6;
 export const DDS_PDF_PAGE_DWELL_MS = 600;
 export const DDS_TEXT_PROGRESS_STEPS = [0.25, 0.5, 0.75, 1] as const;
 export const DDS_TEXT_SENTINEL_DWELL_MS = 300;
+export const DDS_VIDEO_PROGRESS_SAVE_INTERVAL_MS = 1000;
