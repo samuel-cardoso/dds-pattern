@@ -1,5 +1,3 @@
-// Generates public/sample-dds.pdf: a tiny multi-page PDF used by the DDS demo's PdfViewer.
-// Hand-built PDF (no dependency) so the repo doesn't need a real training document to demo scroll-to-end tracking.
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
