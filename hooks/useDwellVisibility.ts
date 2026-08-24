@@ -1,26 +1,39 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useInView } from "react-intersection-observer";
 import { DDS_VISIBILITY_RATIO } from "@/lib/constants";
 
+interface DwellVisibilityOptions {
+  threshold?: number;
+  root?: Element | null;
+}
+
 export function useDwellVisibility(
-  ref: React.RefObject<Element | null>,
   minDwellMs: number,
   onProgress: (progress: number) => void,
   onComplete: () => void,
+  options?: DwellVisibilityOptions,
 ) {
   const completedRef = useRef(false);
+  const visibleSinceRef = useRef<number | null>(null);
+  const { ref, inView } = useInView({
+    threshold: options?.threshold ?? DDS_VISIBILITY_RATIO,
+    root: options?.root ?? undefined,
+  });
 
   useEffect(() => {
-    const node = ref.current;
-    if (!node || completedRef.current) return;
+    if (completedRef.current) return;
+    visibleSinceRef.current = inView ? Date.now() : null;
+  }, [inView]);
 
-    let visibleSince: number | null = null;
+  useEffect(() => {
+    if (completedRef.current) return;
+
     let rafId: number;
-
     const tick = () => {
-      if (visibleSince !== null && !completedRef.current) {
-        const elapsed = Date.now() - visibleSince;
+      if (visibleSinceRef.current !== null && !completedRef.current) {
+        const elapsed = Date.now() - visibleSinceRef.current;
         onProgress(elapsed / minDwellMs);
         if (elapsed >= minDwellMs) {
           completedRef.current = true;
@@ -30,22 +43,10 @@ export function useDwellVisibility(
       }
       rafId = requestAnimationFrame(tick);
     };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (completedRef.current) return;
-        visibleSince = entry.isIntersecting ? Date.now() : null;
-      },
-      { threshold: DDS_VISIBILITY_RATIO },
-    );
-
-    observer.observe(node);
     rafId = requestAnimationFrame(tick);
 
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(rafId);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => cancelAnimationFrame(rafId);
   }, [minDwellMs]);
+
+  return ref;
 }

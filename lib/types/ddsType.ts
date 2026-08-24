@@ -58,6 +58,13 @@ export interface PdfViewerProps {
   src: string;
 }
 
+export interface PdfPageProps {
+  pageNumber: number;
+  seen: boolean;
+  onSeen: (pageNumber: number) => void;
+  scrollRoot: Element | null;
+}
+
 export interface TextViewerProps {
   id: string;
   label: string;
