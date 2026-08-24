@@ -56,7 +56,7 @@ export function VideoViewer({
 
   const handleTimeUpdate = () => {
     const video = videoRef.current;
-    if (!video || !video.duration) return;
+    if (!video || !video.duration || video.seeking) return;
     furthestPlayedRef.current = Math.max(furthestPlayedRef.current, video.currentTime);
 
     const now = Date.now();
