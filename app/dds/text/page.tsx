@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { DDSProvider, DDSGate, TextViewer } from "@/components";
+import { DDSProvider, DDSGate, TextViewer, SampleTermsContent } from "@/components";
 
 export default function TextDemo() {
   const [confirmedAt, setConfirmedAt] = useState<string | null>(null);
@@ -15,27 +15,15 @@ export default function TextDemo() {
       <header className="flex flex-col gap-2">
         <h1 className="text-xl font-semibold">DDS — Texto</h1>
         <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          Confirma como &quot;visualizado&quot; só depois de rolar o texto até o final.
+          Confirma como &quot;visualizado&quot; conforme o texto é rolado, em quatro marcos (25/50/75/100%) — cada
+          um precisa passar um instante na tela, então rolar rápido demais não conta.
         </p>
       </header>
 
       <DDSProvider>
         <DDSGate onConfirm={() => setConfirmedAt(new Date().toLocaleString("pt-BR"))}>
           <TextViewer id="texto-termos" label="Texto — Termos de ciência">
-            <p className="mb-3">
-              Declaro estar ciente das políticas internas apresentadas neste documento, incluindo procedimentos de
-              segurança, uso de equipamentos e conduta esperada durante as atividades.
-            </p>
-            <p className="mb-3">
-              Este texto simula um conteúdo mais longo, exigindo rolagem até o final para que a leitura seja
-              considerada completa. Em um cenário real, aqui entrariam os termos completos do treinamento ou
-              política interna da empresa.
-            </p>
-            <p className="mb-3">
-              Continue rolando para visualizar o restante do conteúdo. A confirmação de leitura só é registrada
-              quando o final deste bloco se torna visível.
-            </p>
-            <p>Fim do documento — leitura concluída.</p>
+            <SampleTermsContent />
           </TextViewer>
         </DDSGate>
       </DDSProvider>

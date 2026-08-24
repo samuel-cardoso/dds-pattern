@@ -1,9 +1,3 @@
-// Serves public/sample-dds.mp4 on its own port (different origin than the
-// Next.js app) with Range-request support, to simulate a video hosted on an
-// external CDN. Native <video> playback events (timeupdate/seeking/ended)
-// aren't subject to CORS, so DDS progress tracking works the same either way
-// — this server exists to demonstrate that, not because CORS headers are
-// required for it to work.
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";

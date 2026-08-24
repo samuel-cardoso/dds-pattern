@@ -19,9 +19,6 @@ export function useDDSItem(id: string, label: string, type: DDSContentType) {
     register({ id, label, type });
   }, [register, id, label, type]);
 
-  // Stable identities: consumers put these in their own effect deps, and an
-  // inline arrow here would recreate them every render, re-firing those
-  // effects and calling markProgress in a loop.
   const itemMarkProgress = useCallback((progress: number) => markProgress(id, progress), [markProgress, id]);
   const itemMarkSeen = useCallback(() => markSeen(id), [markSeen, id]);
 
