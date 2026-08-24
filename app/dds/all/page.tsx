@@ -3,7 +3,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { DDSProvider, DDSGate, ImageViewer, VideoViewer, TextViewer } from "@/components";
+import { DDSProvider, DDSGate, ImageViewer, VideoViewer, TextViewer, SampleTermsContent } from "@/components";
 
 const PdfViewer = dynamic(() => import("@/components/dds/PdfViewer").then((mod) => mod.PdfViewer), {
   ssr: false,
@@ -44,20 +44,7 @@ export default function AllDemo() {
           <PdfViewer id="pdf-manual" label="PDF — Manual do colaborador" src="/sample-dds.pdf" />
 
           <TextViewer id="texto-termos" label="Texto — Termos de ciência">
-            <p className="mb-3">
-              Declaro estar ciente das políticas internas apresentadas neste documento, incluindo procedimentos de
-              segurança, uso de equipamentos e conduta esperada durante as atividades.
-            </p>
-            <p className="mb-3">
-              Este texto simula um conteúdo mais longo, exigindo rolagem até o final para que a leitura seja
-              considerada completa. Em um cenário real, aqui entrariam os termos completos do treinamento ou
-              política interna da empresa.
-            </p>
-            <p className="mb-3">
-              Continue rolando para visualizar o restante do conteúdo. A confirmação de leitura só é registrada
-              quando o final deste bloco se torna visível.
-            </p>
-            <p>Fim do documento — leitura concluída.</p>
+            <SampleTermsContent />
           </TextViewer>
         </DDSGate>
       </DDSProvider>

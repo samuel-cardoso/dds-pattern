@@ -1,5 +1,6 @@
 export const DDS_IMAGE_MIN_DWELL_MS = 3000;
 export const DDS_VIDEO_COMPLETION_THRESHOLD = 0.95;
-export const DDS_SCROLL_COMPLETION_THRESHOLD = 0.98;
 export const DDS_VISIBILITY_RATIO = 0.6;
 export const DDS_PDF_PAGE_DWELL_MS = 600;
+export const DDS_TEXT_PROGRESS_STEPS = [0.25, 0.5, 0.75, 1] as const;
+export const DDS_TEXT_SENTINEL_DWELL_MS = 300;

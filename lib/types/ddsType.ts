@@ -69,5 +69,10 @@ export interface TextViewerProps {
   id: string;
   label: string;
   children: ReactNode;
-  completionThreshold?: number;
+}
+
+export interface TextSentinelProps {
+  index: number;
+  onSeen: (index: number) => void;
+  scrollRoot: Element | null;
 }
